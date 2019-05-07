@@ -24,10 +24,6 @@ app.use(express.static(__dirname))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-router.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.htm')
-})
-
 router.get('/simple/get', (req, res) => {
 	res.json({
 		data: 'success'
@@ -38,5 +34,5 @@ app.use(router)
 
 const PORT = process.env.PORT || 9999
 app.listen(PORT, () => {
-	console.log(`Server running at http://localhost:${PORT}/index.htm`)
+	console.log(`Server running at http://localhost:${PORT}`)
 })
