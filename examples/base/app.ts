@@ -1,5 +1,5 @@
 import axios from '../../src/index'
-
+/* promise return test */
 axios({
 	url: '/base/post',
 	method: 'post',
@@ -10,7 +10,38 @@ axios({
 		name: 'will',
 		age: 2
 	}
+}).then(res => {
+	console.log('promise return : ', res)
 })
+
+/* promise with responseType test  */
+axios({
+	url: '/base/post',
+	method: 'post',
+	headers: {
+		'content-type': 'application/json;charset=utf-8',
+	},
+	responseType: 'json',
+	data: {
+		name: 'will',
+		age: 2
+	}
+}).then(res => {
+	console.log('responseType, json : ', res)
+})
+
+/* headers test */
+// axios({
+// 	url: '/base/post',
+// 	method: 'post',
+// 	headers: {
+// 		'content-type': 'application/json;charset=utf-8',
+// 	},
+// 	data: {
+// 		name: 'will',
+// 		age: 2
+// 	}
+// })
 
 // axios({
 //     method: 'get',
