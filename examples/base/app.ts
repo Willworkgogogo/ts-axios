@@ -1,34 +1,59 @@
-import axios from '../../src/index'
-/* promise return test */
+import axios, { AxiosError } from '../../src/index'
+
+/* timeout test */
 axios({
 	url: '/base/post',
 	method: 'post',
+	timeout: 1,
 	headers: {
-		'content-type': 'application/json;charset=utf-8',
+		'content-type': 'application/json;charset=utf-8'
 	},
 	data: {
 		name: 'will',
-		age: 2
+		age: 18
 	}
-}).then(res => {
-	console.log('promise return : ', res)
 })
+	.then(res => {
+		console.log('timeout test res: ', res)
+	})
+	.catch(err => {
+		console.log(err.message)
+		console.log(err.code)
+		console.log(err.request)
+		console.log(err.config)
+		console.log(err.response)
+	})
+
+/* promise return test */
+// axios({
+// 	url: '/base/post',
+// 	method: 'post',
+// 	headers: {
+// 		'content-type': 'application/json;charset=utf-8',
+// 	},
+// 	data: {
+// 		name: 'will',
+// 		age: 2
+// 	}
+// }).then(res => {
+// 	console.log('promise return : ', res)
+// })
 
 /* promise with responseType test  */
-axios({
-	url: '/base/post',
-	method: 'post',
-	headers: {
-		'content-type': 'application/json;charset=utf-8',
-	},
-	responseType: 'json',
-	data: {
-		name: 'will',
-		age: 2
-	}
-}).then(res => {
-	console.log('responseType, json : ', res)
-})
+// axios({
+// 	url: '/base/post',
+// 	method: 'post',
+// 	headers: {
+// 		'content-type': 'application/json;charset=utf-8',
+// 	},
+// 	responseType: 'json',
+// 	data: {
+// 		name: 'will',
+// 		age: 2
+// 	}
+// }).then(res => {
+// 	console.log('responseType, json : ', res)
+// })
 
 /* headers test */
 // axios({

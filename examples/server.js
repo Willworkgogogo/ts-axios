@@ -9,6 +9,12 @@ const compiler = webpack(WebpackConfig)
 const app = express()
 const router = express.Router()
 
+const sleep = (time) => {
+	return new Promise(resolve => {
+		setTimeout(() => resolve(), time * 1000)
+	})
+}
+
 app.use(
 	webpackDevMiddleware(compiler, {
 		publicPath: WebpackConfig.output.publicPath,
@@ -35,7 +41,9 @@ router.get('/base/get', (req, res) => {
 })
 
 router.post('/base/post', (req, res) => {
-	res.json(req.body)
+	sleep(10).then(() => {
+		res.json(req.body)
+	})
 })
 
 router.post('/base/buffer', (req, res) => {
