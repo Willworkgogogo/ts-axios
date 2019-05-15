@@ -1,3 +1,4 @@
+import { AxiosError } from './../../src/types/index';
 import axios, { AxiosError } from '../../src/index'
 
 /* timeout test */
@@ -16,7 +17,7 @@ axios({
 	.then(res => {
 		console.log('timeout test res: ', res)
 	})
-	.catch(err => {
+	.catch((err: AxiosError) => {
 		console.log(err.message)
 		console.log(err.code)
 		console.log(err.request)
