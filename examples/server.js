@@ -9,7 +9,7 @@ const compiler = webpack(WebpackConfig)
 const app = express()
 const router = express.Router()
 
-const sleep = (time) => {
+const sleep = time => {
 	return new Promise(resolve => {
 		setTimeout(() => resolve(), time * 1000)
 	})
@@ -30,33 +30,44 @@ app.use(express.static(__dirname))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-router.get('/simple/get', (req, res) => {
-	res.json({
-		data: 'success'
+const testSimpleDirRouter = () => {
+	router.get('/simple/get', (req, res) => {
+		res.json({
+			data: 'success'
+		})
 	})
-})
+}
 
-router.get('/base/get', (req, res) => {
-	res.json(req.query)
-})
+const testBaseDirRouter = () => {
+	router.get('/base/get', (req, res) => {
+		res.json(req.query)
+	})
 
-router.post('/base/post', (req, res) => {
-	sleep(10).then(() => {
+	router.post('/base/post', (req, res) => {
+		sleep(10).then(() => {
+			res.json(req.body)
+		})
+	})
+
+	router.post('/base/buffer', (req, res) => {
+		let msg = []
+		req.on('data', chunk => {
+			if (chunk) msg.push(chunk)
+		})
+
+		req.on('end', () => {
+			let buf = Buffer.concat(msg)
+			res.json(buf.toJSON())
+		})
+	})
+
+	router.post('/extend/post', (req, res) => {
 		res.json(req.body)
 	})
-})
+}
 
-router.post('/base/buffer', (req, res) => {
-	let msg = []
-	req.on('data', (chunk) => {
-		if (chunk) msg.push(chunk)
-	})
-
-	req.on('end', () => {
-		let buf = Buffer.concat(msg)
-		res.json(buf.toJSON())
-	})
-})
+testSimpleDirRouter()
+testBaseDirRouter()
 
 app.use(router)
 
@@ -64,3 +75,4 @@ const PORT = process.env.PORT || 9999
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}`)
 })
+

@@ -1,29 +1,49 @@
-import { AxiosError } from './../../src/types/index';
 import axios, { AxiosError } from '../../src/index'
 
-/* timeout test */
+/* extend post request(url) */
 axios({
-	url: '/base/post',
+	url: '/extend/post',
 	method: 'post',
-	timeout: 1,
-	headers: {
-		'content-type': 'application/json;charset=utf-8'
-	},
 	data: {
-		name: 'will',
-		age: 18
+		name: 'will1'
 	}
 })
-	.then(res => {
-		console.log('timeout test res: ', res)
-	})
-	.catch((err: AxiosError) => {
-		console.log(err.message)
-		console.log(err.code)
-		console.log(err.request)
-		console.log(err.config)
-		console.log(err.response)
-	})
+
+axios('/extend/post', {
+	method: 'post',
+	data: {
+		name: 'will2'
+	}
+})
+
+/* get use new aixos instance */
+// axios({
+// 	url: '/simple/get'
+// })
+
+/* timeout test */
+// axios({
+// 	url: '/base/post',
+// 	method: 'post',
+// 	timeout: 1,
+// 	headers: {
+// 		'content-type': 'application/json;charset=utf-8'
+// 	},
+// 	data: {
+// 		name: 'will',
+// 		age: 18
+// 	}
+// })
+// 	.then(res => {
+// 		console.log('timeout test res: ', res)
+// 	})
+// 	.catch((err: AxiosError) => {
+// 		console.log(err.message)
+// 		console.log(err.code)
+// 		console.log(err.request)
+// 		console.log(err.config)
+// 		console.log(err.response)
+// 	})
 
 /* promise return test */
 // axios({
