@@ -66,8 +66,22 @@ const testBaseDirRouter = () => {
 	})
 }
 
+const testExtendDirRouter = () => {
+	router.get('/extend/user', (req, res) => {
+		res.json({
+			code: 200,
+			message: 'success',
+			result: {
+				name: 'will',
+				age: 18
+			}
+		})
+	})
+}
+
 testSimpleDirRouter()
 testBaseDirRouter()
+testExtendDirRouter()
 
 app.use(router)
 
